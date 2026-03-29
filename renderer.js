@@ -69,16 +69,23 @@ document.getElementById('btn-short').addEventListener('click', () => switchMode(
 document.getElementById('btn-long').addEventListener('click', () => switchMode('long'));
 
 // Timer Control
+let endTime = null;
+
 function toggleTimer() {
   if (isRunning) {
     clearInterval(timerInterval);
     iconToggle.classList.remove('fa-pause');
     iconToggle.classList.add('fa-play');
   } else {
+    endTime = Date.now() + (timeLeft * 1000);
+    
     timerInterval = setInterval(() => {
-      timeLeft--;
-      updateDisplay();
+      let now = Date.now();
+      timeLeft = Math.round((endTime - now) / 1000);
+      
       if (timeLeft <= 0) {
+        timeLeft = 0;
+        updateDisplay();
         clearInterval(timerInterval);
         isRunning = false;
         iconToggle.classList.remove('fa-pause');
@@ -86,6 +93,8 @@ function toggleTimer() {
         let nextStatus = currentMode === 'pomodoro' ? 'Break Time!' : 'Focus Time!';
         statusText.textContent = `Done! ${nextStatus}`;
         playAlarm();
+      } else {
+        updateDisplay();
       }
     }, 1000);
     iconToggle.classList.remove('fa-play');

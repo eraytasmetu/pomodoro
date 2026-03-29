@@ -13,7 +13,8 @@ function createWindow() {
     backgroundColor: '#F5F7FA',
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      backgroundThrottling: false
     },
     show: false,
     resizable: true
