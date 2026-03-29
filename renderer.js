@@ -171,3 +171,73 @@ function playAlarm() {
 
 // Init
 updateDisplay();
+
+// --- Todo List Logic ---
+const todoInput = document.getElementById('todo-input');
+const btnAddTodo = document.getElementById('btn-add-todo');
+const todoList = document.getElementById('todo-list');
+
+let todos = JSON.parse(localStorage.getItem('pomodoro-todos')) || [];
+
+function saveTodos() {
+  localStorage.setItem('pomodoro-todos', JSON.stringify(todos));
+}
+
+function renderTodos() {
+  todoList.innerHTML = '';
+  todos.forEach((todo, index) => {
+    const li = document.createElement('li');
+    li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+    
+    // Checkbox
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'todo-checkbox';
+    checkbox.checked = todo.completed;
+    checkbox.addEventListener('change', () => {
+      todos[index].completed = checkbox.checked;
+      saveTodos();
+      renderTodos();
+    });
+
+    // Text
+    const span = document.createElement('span');
+    span.className = 'todo-text';
+    span.textContent = todo.text;
+
+    // Delete Button
+    const delBtn = document.createElement('button');
+    delBtn.className = 'todo-delete';
+    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+    delBtn.addEventListener('click', () => {
+      todos.splice(index, 1);
+      saveTodos();
+      renderTodos();
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(delBtn);
+    todoList.appendChild(li);
+  });
+}
+
+function addTodo() {
+  const text = todoInput.value.trim();
+  if (text) {
+    todos.push({ text, completed: false });
+    todoInput.value = '';
+    saveTodos();
+    renderTodos();
+  }
+}
+
+btnAddTodo.addEventListener('click', addTodo);
+todoInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    addTodo();
+  }
+});
+
+// Render initial todos
+renderTodos();
