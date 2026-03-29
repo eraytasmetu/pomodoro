@@ -1,5 +1,5 @@
 {
-  "name": "pomodoro-soft",
+  "name": "ee-pomodoro",
   "version": "1.0.0",
   "description": "A striking soft-themed Pomodoro desktop app",
   "main": "main.js",
@@ -9,7 +9,7 @@
   },
   "build": {
     "appId": "com.eraytas.pomodoro-soft",
-    "productName": "Pomodoro Soft",
+    "productName": "E&E Pomodoro",
     "mac": {
       "target": [
         "dmg",
