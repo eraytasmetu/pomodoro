@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-original">
+  <div class="drag-region"></div>
+  <div class="app-container">
+    
+    <div class="glass-panel main-panel">
+      <!-- Top Modes -->
+      <div class="mode-selector">
+        <button class="mode-btn active" id="btn-pomodoro">Pomodoro</button>
+        <button class="mode-btn" id="btn-short">Short Break</button>
+        <button class="mode-btn" id="btn-long">Long Break</button>
+      </div>
+
+      <!-- Timer Display -->
+      <div class="timer-container" id="timer-ring">
+        <svg class="progress-ring" width="280" height="280">
+          <circle class="progress-ring__circle bg" stroke-width="15" fill="transparent" r="120" cx="140" cy="140"/>
+          <circle class="progress-ring__circle fg" stroke-width="15" fill="transparent" r="120" cx="140" cy="140"/>
+        </svg>
+        <div class="time-display" id="time-display">25:00</div>
+        <div class="status-text" id="status-text">Ready to focus</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="control-btn" id="btn-reset">
+          <i class="fas fa-undo"></i>
+        </button>
+        <button class="control-btn play-btn" id="btn-toggle">
+          <i class="fas fa-play" id="icon-toggle"></i>
+        </button>
+        <button class="control-btn" id="btn-settings">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay hidden" id="settings-modal">
+    <div class="glass-panel modal-content">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <button class="close-btn" id="btn-close-settings"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="settings-body">
+        <div class="setting-item">
+          <label>Pomodoro (min)</label>
+          <input type="number" id="input-pomodoro" value="25" min="1" max="90">
+        </div>
+        <div class="setting-item">
+          <label>Short Break (min)</label>
+          <input type="number" id="input-short" value="5" min="1" max="30">
+        </div>
+        <div class="setting-item">
+          <label>Long Break (min)</label>
+          <input type="number" id="input-long" value="15" min="1" max="60">
+        </div>
+        <div class="setting-item">
+          <label>Background</label>
+          <select id="select-bg" class="bg-selector">
+            <option value="original">Original Soft</option>
+            <option value="mint">Mint Fresh</option>
+            <option value="sunset">Warm Sunset</option>
+            <option value="night">Midnight Calm</option>
+          </select>
+        </div>
+        <button class="save-btn" id="btn-save-settings">Save & Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

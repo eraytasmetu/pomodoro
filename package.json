@@ -1,0 +1,37 @@
+{
+  "name": "pomodoro-soft",
+  "version": "1.0.0",
+  "description": "A striking soft-themed Pomodoro desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.eraytas.pomodoro-soft",
+    "productName": "Pomodoro Soft",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.productivity",
+      "identity": null
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "electron",
+    "mac"
+  ],
+  "author": "Eray",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^34.3.0",
+    "electron-builder": "^26.8.1"
+  }
+}
