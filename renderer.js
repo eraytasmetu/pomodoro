@@ -183,12 +183,44 @@ function saveTodos() {
   localStorage.setItem('pomodoro-todos', JSON.stringify(todos));
 }
 
+let draggedItemIndex = null;
+
 function renderTodos() {
   todoList.innerHTML = '';
   todos.forEach((todo, index) => {
     const li = document.createElement('li');
     li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
     
+    // Drag integration
+    li.draggable = true;
+    li.dataset.index = index;
+
+    li.addEventListener('dragstart', (e) => {
+      draggedItemIndex = index;
+      setTimeout(() => li.classList.add('dragging'), 0);
+    });
+
+    li.addEventListener('dragend', () => {
+      li.classList.remove('dragging');
+      draggedItemIndex = null;
+    });
+
+    li.addEventListener('dragover', (e) => {
+      e.preventDefault(); // allow drop
+    });
+
+    li.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const dropIndex = index;
+      if (draggedItemIndex !== null && draggedItemIndex !== dropIndex) {
+        const draggedItem = todos[draggedItemIndex];
+        todos.splice(draggedItemIndex, 1);
+        todos.splice(dropIndex, 0, draggedItem);
+        saveTodos();
+        renderTodos();
+      }
+    });
+
     // Checkbox
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';

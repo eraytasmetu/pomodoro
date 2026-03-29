@@ -426,6 +426,17 @@ body.bg-night { background-image: url('assets/bg_night.png'); }
   border-radius: 12px;
   box-shadow: 2px 2px 5px var(--shadow-dark), -2px -2px 5px var(--shadow-light);
   transition: opacity 0.3s;
+  cursor: grab;
+}
+
+.todo-item:active {
+  cursor: grabbing;
+}
+
+.todo-item.dragging {
+  opacity: 0.5;
+  border: 2px dashed var(--theme-color);
+  box-shadow: none;
 }
 
 .todo-item.completed {
